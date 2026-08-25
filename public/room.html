@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Room — WatchWithIsha</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="room">
+    <div class="topbar">
+      <a href="/" class="wordmark" style="font-size:1.05rem;text-decoration:none;">WATCH WITH <span class="bulb">ISHA</span></a>
+
+      <div class="ticket">
+        <span class="ticket-code" id="room-code">------</span>
+        <button class="ticket-copy" id="copy-link-btn" title="Copy invite link">COPY LINK</button>
+      </div>
+
+      <div class="sync-ticker">
+        <span class="sync-dot" id="sync-dot"></span>
+        <span id="sync-label">LATENCY --ms</span>
+      </div>
+    </div>
+
+    <div class="room-main">
+      <div class="stage" id="stage">
+        <div class="player-shell" id="player-shell">
+          <div class="adapter-mount" id="adapter-mount"></div>
+          <div class="player-empty" id="player-empty">
+            <div class="film-icon">🎞️</div>
+            <div>No video loaded yet.<br/>Pick a source below to start the show.</div>
+          </div>
+          <div class="gesture-overlay hidden" id="gesture-overlay">
+            <button class="btn btn-primary">▶ Tap to sync &amp; play</button>
+          </div>
+          <div class="media-dock" id="media-dock">
+            <button class="dock-toggle" id="dock-toggle-btn" title="Hide/show camera tiles">▾</button>
+          </div>
+        </div>
+
+        <div class="source-bar">
+          <div class="source-tabs">
+            <button class="source-tab active" data-type="direct">Direct URL</button>
+            <button class="source-tab" data-type="youtube">YouTube</button>
+            <button class="source-tab" data-type="local">Local file</button>
+          </div>
+
+          <div class="source-input-row" id="source-input-direct">
+            <input type="text" id="direct-url" placeholder="https://example.com/movie.mp4 or .m3u8" />
+            <button class="btn btn-primary" id="load-direct-btn">Load</button>
+          </div>
+
+          <div class="source-input-row hidden" id="source-input-youtube">
+            <input type="text" id="youtube-url" placeholder="https://youtube.com/watch?v=..." />
+            <button class="btn btn-primary" id="load-youtube-btn">Load</button>
+          </div>
+
+          <div class="source-input-row hidden" id="source-input-local">
+            <input type="file" id="local-file" accept="video/*" style="flex:1;" />
+          </div>
+          <div class="upload-progress hidden" id="upload-progress">
+            <div class="upload-progress-bar" id="upload-progress-bar"></div>
+            <span class="upload-progress-label" id="upload-progress-label">Uploading… 0%</span>
+          </div>
+        </div>
+
+        <div class="controls" id="controls">
+          <button class="icon-btn" id="play-pause-btn" title="Play/Pause">▶</button>
+          <div class="seek-row">
+            <span class="time-label" id="time-current">0:00</span>
+            <input type="range" id="seek-bar" min="0" max="100" value="0" step="0.1" />
+            <span class="time-label" id="time-duration">0:00</span>
+          </div>
+          <button class="icon-btn" id="resync-btn" title="Force resync">⟳</button>
+          <button class="icon-btn" id="mic-btn" title="Toggle microphone">🎤</button>
+          <button class="icon-btn" id="cam-btn" title="Toggle camera">📷</button>
+          <button class="icon-btn" id="pip-btn" title="Pop out video call (floats over other tabs)">🗔</button>
+          <button class="icon-btn" id="fullscreen-btn" title="Fullscreen">⛶</button>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="sidebar-tabs">
+          <button class="sidebar-tab active" data-panel="chat">Chat</button>
+          <button class="sidebar-tab" data-panel="people">People (<span id="people-count">1</span>)</button>
+          <button class="sidebar-tab" data-panel="favorites">★ Favorites</button>
+        </div>
+
+        <div class="sidebar-panel active" id="panel-chat">
+          <div class="chat-log" id="chat-log"></div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="Say something…" maxlength="500" />
+            <button class="btn btn-ghost" id="chat-send-btn">Send</button>
+          </div>
+        </div>
+
+        <div class="sidebar-panel" id="panel-people">
+          <div class="people-list" id="people-list"></div>
+        </div>
+
+        <div class="sidebar-panel" id="panel-favorites">
+          <div class="favorites-save-row hidden" id="favorites-save-row">
+            <input type="text" id="favorite-name-input" placeholder="Name this movie…" maxlength="80" />
+            <button class="btn btn-primary" id="favorite-save-btn">★ Save</button>
+          </div>
+          <p class="favorites-hint" id="favorites-hint">Load something in the player to save it here.</p>
+          <div class="favorites-list" id="favorites-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toast-wrap"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="/js/sync-engine.js"></script>
+  <script src="/js/adapters.js"></script>
+  <script src="/js/webrtc.js"></script>
+  <script src="/js/pip.js"></script>
+  <script src="/js/room.js"></script>
+</body>
+</html>

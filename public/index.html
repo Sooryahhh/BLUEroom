@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>WatchWithIsha — Watch anything, together</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="landing">
+    <div class="wordmark">WATCH WITH <span class="bulb">ISHA</span></div>
+    <p class="tagline">Watch a video file, a direct stream link, or a YouTube link in perfect sync with anyone, anywhere. No account, no download — just a code.</p>
+
+    <div class="landing-panels">
+      <div class="panel">
+        <h2>Start a room</h2>
+        <p class="hint">You'll get a 6-character code to share.</p>
+        <input id="create-name" class="field-name" type="text" placeholder="Your name (optional)" maxlength="24" />
+        <button id="create-btn" class="btn btn-primary">Start a room</button>
+      </div>
+      <div class="panel">
+        <h2>Join a room</h2>
+        <p class="hint">Enter the code someone shared with you.</p>
+        <input id="join-code" class="code-input" type="text" placeholder="ABC123" maxlength="6" autocomplete="off" autocapitalize="characters" />
+        <input id="join-name" class="field-name" type="text" placeholder="Your name (optional)" maxlength="24" />
+        <button id="join-btn" class="btn btn-secondary">Join room</button>
+        <div id="join-error" class="error-text"></div>
+      </div>
+    </div>
+
+    <p class="footnote">No sign-up. No history saved. Rooms disappear once everyone leaves.</p>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/landing.js"></script>
+</body>
+</html>
